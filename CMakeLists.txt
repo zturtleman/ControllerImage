@@ -27,3 +27,13 @@ add_executable(demo-controllerimage src/demo-controllerimage.c)
 target_link_libraries(demo-controllerimage controllerimage ${SDL3_LIBRARIES})
 
 
+add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/gamepad_front.bmp"
+    COMMAND "${CMAKE_COMMAND}" -E copy "${CMAKE_CURRENT_SOURCE_DIR}/src/gamepad_front.bmp" "${CMAKE_CURRENT_BINARY_DIR}/gamepad_front.bmp"
+    DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/gamepad_front.bmp"
+)
+add_custom_target(copy-test-resources
+    DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/gamepad_front.bmp"
+)
+add_dependencies(test-controllerimage copy-test-resources)
+
+
